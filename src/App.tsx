@@ -48,10 +48,16 @@ export default () => {
                   <option value="YELLOW">Yellow</option>
                 </select>
                 <button onClick={(e) => {
+                    const result = compareGuess(code, [first, second, third, fourth]);
                     setHistory([{
                         guess: [first, second, third, fourth],
-                        result: compareGuess(code, [first, second, third, fourth])
+                        result
                     }, ...history]);
+
+                    if (result.black === 4){
+                      setCode(generateCode());
+                      setHistory([]);
+                    }
                 }}>Guess</button>
             </div>
             <div>
