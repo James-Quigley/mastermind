@@ -6,6 +6,8 @@ export default () => {
 
     const [code, setCode] = React.useState<Array<string>>(generateCode());
 
+    const [gameOver, setGameOver] = React.useState(false);
+
     const [wins, setWins] = React.useState(0);
     const [losses, setLosses] = React.useState(0);
 
@@ -55,7 +57,7 @@ export default () => {
                   <option value="WHITE">White</option>
                   <option value="YELLOW">Yellow</option>
                 </select>
-                <button onClick={(e) => {
+                <button disabled={gameOver} onClick={(e) => {
                     const result = compareGuess(code, [first, second, third, fourth]);
                     setHistory([{
                         guess: [first, second, third, fourth],
@@ -63,13 +65,21 @@ export default () => {
                     }, ...history]);
 
                     if (result.black === 4){
-                      setCode(generateCode());
-                      setHistory([]);
+                      setGameOver(true);
                       setWins(wins + 1);
+                      setTimeout(() => {
+                        setCode(generateCode());
+                        setHistory([]);
+                        setGameOver(false);
+                      }, 2000);
                     } else if (history.length >= 9){
-                      setCode(generateCode());
-                      setHistory([]);
+                      setGameOver(true);
                       setLosses(losses + 1);
+                      setTimeout(() => {
+                        setCode(generateCode());
+                        setHistory([]);
+                        setGameOver(false);
+                      }, 2000);
                     }
                 }}>Guess</button>
                 <br />
