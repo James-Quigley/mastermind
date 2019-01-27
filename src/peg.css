@@ -1,0 +1,33 @@
+.WHITE {
+    background-color: white;
+}
+
+.BLACK {
+    background-color: black;
+}
+
+.BLUE {
+    background-color: blue;
+}
+
+.GREEN {
+    background-color: green;
+}
+
+.YELLOW {
+    background-color: yellow;
+}
+
+.RED {
+    background-color: red;
+}
+
+.peg {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: inline-block;
+    margin: 5px;
+    margin-right: 35px;
+}

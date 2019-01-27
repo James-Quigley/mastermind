@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { compareGuess, generateCode } from './helpers';
+import './peg.css';
 
 export default () => {
 
     const [code, setCode] = React.useState<Array<string>>(generateCode());
+
+    const [wins, setWins] = React.useState(0);
+    const [losses, setLosses] = React.useState(0);
 
     const [history, setHistory] = React.useState<Array<{guess: Array<string>, result: { black: number, white: number }}>>([]);
 
@@ -14,6 +18,10 @@ export default () => {
 
     return (
         <div>
+          <div>
+            <p>Wins: {wins}</p>
+            <p>Losses: {losses}</p>
+          </div>
             <div>
                 <select name="1" id="1" onChange={(e) => setFirst(e.target.value)}>
                   <option value="BLACK">Black</option>
@@ -57,16 +65,29 @@ export default () => {
                     if (result.black === 4){
                       setCode(generateCode());
                       setHistory([]);
+                      setWins(wins + 1);
+                    } else if (history.length >= 9){
+                      setCode(generateCode());
+                      setHistory([]);
+                      setLosses(losses + 1);
                     }
                 }}>Guess</button>
+                <br />
+                <div className={first + " peg"}></div>
+                <div className={second + " peg"}></div>
+                <div className={third + " peg"}></div>
+                <div className={fourth + " peg"}></div>
             </div>
+            <hr/>
             <div>
                 {
                     history.map(turn => (
                         <div>
-                            <p>{turn.guess.join(" ")}</p>
-                            <p>White: {turn.result.white}</p>
-                            <p>Black: {turn.result.black}</p>
+                            {turn.guess.map(peg => (
+                              <div className={peg + " peg"}></div>
+                            ))}
+                            <span style={{marginRight: '15px'}}>White: {turn.result.white}</span>
+                            <span>Black: {turn.result.black}</span>
                         </div>
                     ))
                 }
