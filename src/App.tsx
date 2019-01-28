@@ -100,6 +100,7 @@ export default () => {
                 <div className={second + " peg"}></div>
                 <div className={third + " peg"}></div>
                 <div className={fourth + " peg"}></div>
+                <span>{10 - history.length} guesses left</span>
             </div>
             <hr/>
             <div>
